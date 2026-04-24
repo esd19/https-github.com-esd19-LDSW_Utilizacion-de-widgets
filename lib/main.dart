@@ -1,86 +1,71 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CineVerseApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CineVerseApp extends StatelessWidget {
+  const CineVerseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Widgets Básicos',
+      title: 'CineVerse',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('LDSW Widgets'),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+        body: Stack(
+          children: [
 
-              // TEXT
-              const Text(
-                'Bienvenido a Flutter',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+            // Imagen de fondo
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba',
+                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
+            ),
 
-              const SizedBox(height: 20),
+            // Capa oscura
+            Container(
+              color: Colors.black.withOpacity(0.6),
+            ),
 
-              // ROW
-              Row(
+            // Texto principal
+            Center(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(Icons.star),
-                  SizedBox(width: 10),
-                  Text('Row Widget'),
-                  SizedBox(width: 10),
-                  Icon(Icons.star),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-
-              // STACK
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    color: Colors.blue,
+                  Text(
+                    'Bienvenido a',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                    ),
                   ),
-                  Container(
-                    width: 70,
-                    height: 70,
-                    color: Colors.orange,
+                  SizedBox(height: 10),
+                  Text(
+                    'CineVerse',
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  const Text(
-                    'Stack',
-                    style: TextStyle(color: Colors.white),
+                  SizedBox(height: 20),
+                  Text(
+                    'Tu catálogo de películas',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 18,
+                    ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: 20),
-
-              // CONTAINER
-              Container(
-                padding: const EdgeInsets.all(15),
-                color: Colors.green,
-                child: const Text(
-                  'Container Widget',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
