@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const CineVerseApp());
+}
+
+Future<Map<String, dynamic>> obtenerPokemon() async {
+  final response = await http.get(
+    Uri.parse('https://pokeapi.co/api/v2/pokemon/pikachu'),
+  );
+
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Error al cargar datos');
+  }
 }
 
 class CineVerseApp extends StatelessWidget {
@@ -33,20 +47,23 @@ class CineVerseApp extends StatelessWidget {
               color: Colors.black.withOpacity(0.6),
             ),
 
-            // Texto principal
+            // Contenido
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+
+                  const Text(
                     'Bienvenido a',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+
+                  const SizedBox(height: 10),
+
+                  const Text(
                     'CineVerse',
                     style: TextStyle(
                       color: Colors.amber,
@@ -54,13 +71,54 @@ class CineVerseApp extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+
+                  const SizedBox(height: 20),
+
+                  const Text(
                     'Tu catálogo de películas',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 18,
                     ),
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // 🔥 AQUÍ VA EL HTTP
+                  FutureBuilder(
+                    future: obtenerPokemon(),
+                    builder: (context, snapshot) {
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator(color: Colors.white);
+                      }
+
+                      if (snapshot.hasError) {
+                        return const Text(
+                          'Error al cargar datos',
+                          style: TextStyle(color: Colors.white),
+                        );
+                      }
+
+                      final data = snapshot.data!;
+
+                      return Column(
+                        children: [
+                          Text(
+                            data['name'].toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Image.network(
+                            data['sprites']['front_default'],
+                            width: 120,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
