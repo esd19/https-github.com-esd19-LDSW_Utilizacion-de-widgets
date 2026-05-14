@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "782486650936",
+    "project_id": "cineverse-c08c8",
+    "storage_bucket": "cineverse-c08c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782486650936:android:ad4071dc2f95be784e26cd",
+        "android_client_info": {
+          "package_name": "com.example.hello_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXG9DK91FK3sXbnUebS2djuRD5VpP0NhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
